@@ -15,7 +15,7 @@ Simple Products Dashboard for Adding, Editing and Deleting Products.
 - XAMPP
 
 ## How to Run
-- Import the database in PHPMyAdmin
+- Import the database in PHPMyAdmin (product_dashboard.xml)
 - Run server (Ex: Apache) from XAMPP
 - Go to http://localhost/products_dashboard/
 
