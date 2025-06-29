@@ -16,11 +16,11 @@ Simple Products Dashboard for Adding, Editing and Deleting Products.
 
 ## How to Run
 - Import the database in PHPMyAdmin
-- Run server (Eg: Apache) from XAMPP
+- Run server (Ex: Apache) from XAMPP
 - Go to http://localhost/products_dashboard/
 
 ## db.php
-- Hostname    (Eg: localhost)
+- Hostname    (Ex: localhost)
 - Username    
 - Password
 - Database Name
