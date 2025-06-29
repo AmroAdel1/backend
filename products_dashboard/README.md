@@ -2,7 +2,7 @@
 
 ## Overview
 Simple Products Dashboard for Adding, Editing and Deleting Products.
-No Security measures added
+- No Security measures added
 
 ## Features
 - Table of Products List
