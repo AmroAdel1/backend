@@ -1,0 +1,527 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+
+/* Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+  font-family: 'Noto Serif', serif;
+}
+
+p, h1, h2, h3, a, ul {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #222;
+}
+
+/* Navigation Styles */
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 60px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  text-transform: uppercase;
+}
+
+nav ul {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+nav li {
+  list-style-type: none;
+  margin-left: 20px;
+}
+
+nav h1 {
+  font-size: 3em;
+}
+
+nav p, nav a {
+  color: #777;
+  font-weight: 300;
+}
+
+/* Footer Styles */
+footer {
+  color: #777;
+  text-align: center;
+  margin: 80px auto 20px;
+}
+
+/* Content Styles */
+.content {
+  margin-left: 20px;
+}
+
+h2 {
+  margin-bottom: 40px;
+}
+
+h3 {
+  text-transform: capitalize;
+  margin-bottom: 8px;
+}
+
+/* Index/Todo List Styles */
+.todos a {
+  display: block;
+  margin: 40px 0;
+  padding-left: 30px;
+  border-left: 6px solid crimson;
+}
+
+.todos a:hover h3 {
+  color: crimson;
+}
+
+.todo-item {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border-left: 6px solid #ddd;
+}
+
+.todo-item.completed {
+  border-left-color: #27ae60;
+  opacity: 0.7;
+}
+
+.todo-item.high-priority {
+  border-left-color: #e74c3c;
+}
+
+.todo-item.medium-priority {
+  border-left-color: #f39c12;
+}
+
+.todo-item.low-priority {
+  border-left-color: #27ae60;
+}
+
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.todo-title {
+  font-size: 1.4em;
+  font-weight: bold;
+}
+
+.todo-completed {
+  text-decoration: line-through;
+  color: #777;
+}
+
+.todo-priority {
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: white;
+}
+
+.priority-high {
+  background: #e74c3c;
+}
+
+.priority-medium {
+  background: #f39c12;
+}
+
+.priority-low {
+  background: #27ae60;
+}
+
+.todo-description {
+  margin: 10px 0;
+  color: #555;
+  line-height: 1.5;
+}
+
+.todo-meta {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 10px;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Details Styles */
+.details {
+  position: relative;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  padding: 8px;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.delete:hover {
+  cursor: pointer;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.2);
+  background: #c0392b;
+}
+
+/* Form Styles */
+.create-todo form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.create-todo input,
+.create-todo textarea,
+.create-todo select {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: 'Noto Serif', serif;
+}
+
+.create-todo label {
+  display: block;
+  margin-top: 24px;
+  font-weight: bold;
+}
+
+.create-todo textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+.create-todo button {
+  margin-top: 20px;
+  background: crimson;
+  color: white;
+  padding: 10px 20px;
+  border: 0;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.create-todo button:hover {
+  background: #a3122d;
+}
+
+/* Filter Styles */
+.filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background: #95a5a6;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.filter-btn:hover {
+  background: #7f8c8d;
+}
+
+.filter-btn.active {
+  background: crimson;
+}
+
+/* Button Styles */
+.btn {
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
+  transition: background 0.3s;
+}
+
+.btn-edit {
+  background: #3498db;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #2980b9;
+}
+
+.btn-delete {
+  background: #e74c3c;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c0392b;
+}
+
+.btn-back {
+  background: #95a5a6;
+  color: white;
+}
+
+.btn-back:hover {
+  background: #7f8c8d;
+}
+
+.btn-toggle {
+  background: #2ecc71;
+  color: white;
+}
+
+.btn-toggle:hover {
+  background: #27ae60;
+}
+
+.btn-complete {
+  background: #27ae60;
+  color: white;
+}
+
+.btn-complete:hover {
+  background: #219653;
+}
+
+/* Status Styles */
+.status-completed {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+.status-pending {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+/* Error Styles */
+.error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 15px;
+  border-radius: 4px;
+  margin: 20px 0;
+  border: 1px solid #f5c6cb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  body {
+    padding: 0 15px;
+  }
+  
+  nav {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  nav ul {
+    margin-top: 20px;
+  }
+  
+  nav li {
+    margin: 0 10px;
+  }
+  
+  .filters {
+    flex-direction: column;
+  }
+  
+  .todo-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .todo-priority {
+    margin-top: 10px;
+  }
+  
+  .todo-actions {
+    flex-direction: column;
+  }
+}
+
+/* Empty State Styles */
+.empty-state {
+    text-align: center;
+    padding: 40px;
+    color: #777;
+    font-style: italic;
+}
+
+/* Navigation Link Styles */
+nav h1 a {
+    color: #222;
+    transition: color 0.3s;
+}
+
+nav h1 a:hover {
+    color: crimson;
+}
+
+nav ul a {
+    transition: color 0.3s;
+}
+
+nav ul a:hover {
+    color: crimson;
+}
+
+/* Form Improvements */
+.create-todo input:focus,
+.create-todo textarea:focus,
+.create-todo select:focus {
+    outline: none;
+    border-color: crimson;
+    box-shadow: 0 0 5px rgba(220, 20, 60, 0.3);
+}
+
+/* Button Group Styles */
+.todo-actions form {
+    display: inline;
+}
+
+/* Responsive Improvements */
+@media (max-width: 768px) {
+    .todo-actions form {
+        display: block;
+        margin-bottom: 5px;
+    }
+    
+    .filters form {
+        display: block;
+        margin-top: 10px;
+    }
+}
+
+/* Form Specific Styles */
+.todo-form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Noto Serif', serif;
+    font-size: 1rem;
+}
+
+.form-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.btn-primary {
+    background: crimson;
+    color: white;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+}
+
+.btn-primary:hover {
+    background: #a3122d;
+}
+
+.form-actions {
+    margin-top: 2rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+/* Edit Page Specific */
+.edit-todo {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Create Page Specific */
+.create-todo {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Focus States */
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: crimson;
+    box-shadow: 0 0 5px rgba(220, 20, 60, 0.3);
+}
+
+/* 404 Page Styles */
+.error-page {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.error-page h1 {
+    font-size: 8rem;
+    color: crimson;
+    margin-bottom: 20px;
+}
+
+.error-page p {
+    font-size: 1.5rem;
+    color: #666;
+    margin-bottom: 30px;
+}

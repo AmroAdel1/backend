@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head', { title: todo.title }) %>
+<body>
+    <%- include('../partials/navbar') %>
+
+    <div class="content">
+        <div class="details <%= todo.completed ? 'completed' : '' %>">
+            <form action="/todos/<%= todo._id %>" method="POST" style="display: inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="delete" onclick="return confirm('Delete this todo?')">×</button>
+            </form>
+
+            <div class="todo-header">
+                <h1 class="<%= todo.completed ? 'todo-completed' : '' %>"><%= todo.title %></h1>
+                <span class="todo-priority priority-<%= todo.priority %>">
+                    <%= todo.priority.toUpperCase() %>
+                </span>
+            </div>
+
+            <% if (todo.description) { %>
+                <div class="todo-description">
+                    <p><%= todo.description %></p>
+                </div>
+            <% } %>
+
+            <div class="todo-meta">
+                <p><strong>Status:</strong> 
+                    <span class="<%= todo.completed ? 'status-completed' : 'status-pending' %>">
+                        <%= todo.completed ? 'Completed' : 'Pending' %>
+                    </span>
+                </p>
+                <p><strong>Created:</strong> <%= new Date(todo.createdAt).toLocaleString() %></p>
+                <p><strong>Last Updated:</strong> <%= new Date(todo.updatedAt).toLocaleString() %></p>
+                <% if (todo.dueDate) { %>
+                    <p><strong>Due Date:</strong> <%= new Date(todo.dueDate).toLocaleDateString() %></p>
+                <% } %>
+            </div>
+
+            <div class="todo-actions">
+                <form action="/todos/<%= todo._id %>/toggle" method="POST" style="display: inline;">
+                    <button type="submit" class="btn <%= todo.completed ? 'btn-toggle' : 'btn-complete' %>">
+                        <%= todo.completed ? 'Mark Incomplete' : 'Mark Complete' %>
+                    </button>
+                </form>
+                
+                <a href="/todos" class="btn btn-back">Back to List</a>
+                
+                <a href="/todos/<%= todo._id %>/edit" class="btn btn-edit">Edit Todo</a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+</body>
+</html>
