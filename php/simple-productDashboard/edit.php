@@ -115,7 +115,7 @@
             $id = $_GET['id'];
             $sql = "SELECT * FROM products WHERE id = $id";
             $result = mysqli_query($conn, $sql);
-            $product = mysqli_fetch_assoc($result);    // in top
+            $product = mysqli_fetch_assoc($result);    // get product values
 
             if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $name = $_POST['name'];
