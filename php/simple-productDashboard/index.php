@@ -94,7 +94,7 @@
 <body>
     <h2>All Products</h2>
     <a href="add.php" class="add-btn">Add New Product</a>
-    <table>        <!-- border="1" cellpadding="10" -->
+    <table>        
         <tr>
             <th>Name</th>
             <th>Quantity</th>
@@ -125,4 +125,3 @@
     </table>
 </body>
 </html>
-<!-- <a href="edit.php?id={$row['id']}">EDIT</a> -->
