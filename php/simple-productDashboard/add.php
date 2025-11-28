@@ -1,45 +1,22 @@
 <?php
     include "db.php";
 
-    $error = '';
-    $success = '';
-
     if ($_SERVER['REQUEST_METHOD'] == "POST") {
-        try {
-            // Validate and sanitize inputs
-            $name = mysqli_real_escape_string($conn, trim($_POST['name']));
-            $quantity = intval($_POST['quantity']);
-            $price = floatval($_POST['price']);
-            $desc = mysqli_real_escape_string($conn, trim($_POST['desc']));
-            
-            // Validate required fields
-            if (empty($name) || empty($desc)) {
-                throw new Exception("All fields are required");
-            }
-            
-            if ($quantity < 0) {
-                throw new Exception("Quantity cannot be negative");
-            }
-            
-            if ($price < 0) {
-                throw new Exception("Price cannot be negative");
-            }
-            
-            // Use prepared statement
-            $stmt = $conn->prepare("INSERT INTO products (name, quantity, price, description) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("sids", $name, $quantity, $price, $desc);
-            
-            if ($stmt->execute()) {
-                $success = "Product added successfully!";
-                // Clear form on success if you want
-                $_POST = array();
-            } else {
-                throw new Exception("Error adding product: " . $conn->error);
-            }
-        } catch (Exception $e) {
-            $error = $e->getMessage();
-        }
+        $name = $_POST['name'];
+        $quantity = $_POST['quantity'];
+        $price = $_POST['price'];
+        $desc = $_POST['desc'];
+
+        $sql = "INSERT INTO products(name, quantity, price, description) 
+                VALUES ('$name', '$quantity' ,'$price', '$desc')";
+
+        $result = mysqli_query($conn, $sql);
+
+        echo '<div class="success-message">Product added successfully! 
+                <a href="index.php" class="back-link">Go back to products</a>
+              </div>';
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -47,172 +24,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Product</title>
+    <title>Add New Product</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f5f5f5;
+        * {
+            box-sizing: border-box;
             margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 0;
         }
         
-        .form-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .product-form {
+            max-width: 600px;
+            margin: 30px auto;
             padding: 30px;
-            width: 100%;
-            max-width: 500px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
         
         h2 {
             color: #2c3e50;
-            margin-top: 0;
             margin-bottom: 25px;
             text-align: center;
-            font-size: 28px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
         }
         
-        .form-group {
-            margin-bottom: 20px;
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
         
         label {
-            display: block;
-            margin-bottom: 8px;
             font-weight: 600;
-            color: #34495e;
+            color: #2c3e50;
+            margin-bottom: -15px;
         }
         
-        input[type="text"],
-        input[type="number"],
-        textarea {
-            width: 100%;
+        input {
             padding: 12px;
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 16px;
-            transition: border-color 0.3s;
-            box-sizing: border-box;
+            width: 100%;
+            transition: border 0.3s;
         }
         
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        textarea:focus {
+        input:focus {
             border-color: #3498db;
             outline: none;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
         }
         
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-        
-        button[type="submit"] {
+        button {
             background-color: #3498db;
             color: white;
             border: none;
-            padding: 12px 20px;
+            padding: 12px;
+            font-size: 16px;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            width: 100%;
             transition: background-color 0.3s;
+            font-weight: 600;
+            margin-top: 10px;
         }
         
-        button[type="submit"]:hover {
+        button:hover {
             background-color: #2980b9;
         }
         
-        .required-field::after {
-            content: " *";
-            color: #e74c3c;
-        }
-        
-        .message {
-            padding: 10px;
-            margin-bottom: 20px;
+        .success-message {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
             border-radius: 4px;
             text-align: center;
         }
         
-        .success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
-        .error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        
         .back-link {
-            display: inline-block;
-            margin-top: 15px;
             color: #3498db;
             text-decoration: none;
+            font-weight: 600;
+            margin-left: 10px;
         }
         
         .back-link:hover {
             text-decoration: underline;
         }
+        
+        textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+            min-height: 100px;
+            font-family: inherit;
+            resize: vertical;
+        }
     </style>
 </head>
 <body>
-    <div class="form-container">
+    <div class="product-form">
         <h2>Add Product</h2>
-        
-        <?php if ($error): ?>
-            <div class="message error"><?php echo $error; ?></div>
-        <?php endif; ?>
-        
-        <?php if ($success): ?>
-            <div class="message success">
-                <?php echo $success; ?>
-                <a href="index.php" class="back-link">View all products</a>
-            </div>
-        <?php endif; ?>
-        
         <form method="post">
-            <div class="form-group">
-                <label for="name" class="required-field">Name</label>
-                <input type="text" id="name" name="name" required 
-                       value="<?php echo isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>" 
-                       placeholder="Enter product name">
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" required />
             </div>
             
-            <div class="form-group">
-                <label for="quantity" class="required-field">Quantity</label>
-                <input type="number" id="quantity" name="quantity" min="0" required 
-                       value="<?php echo isset($_POST['quantity']) ? htmlspecialchars($_POST['quantity']) : ''; ?>" 
-                       placeholder="Enter quantity">
+            <div>
+                <label for="quantity">Quantity:</label>
+                <input type="number" name="quantity" id="quantity" required />
             </div>
             
-            <div class="form-group">
-                <label for="price" class="required-field">Price</label>
-                <input type="number" id="price" name="price" min="0" step="0.01" required 
-                       value="<?php echo isset($_POST['price']) ? htmlspecialchars($_POST['price']) : ''; ?>" 
-                       placeholder="Enter price">
+            <div>
+                <label for="price">Price:</label>
+                <input type="number" name="price" id="price" step="0.01" required />
             </div>
             
-            <div class="form-group">
-                <label for="desc" class="required-field">Description</label>
-                <textarea id="desc" name="desc" required 
-                          placeholder="Enter product description"><?php echo isset($_POST['desc']) ? htmlspecialchars($_POST['desc']) : ''; ?></textarea>
+            <div>
+                <label for="desc">Description:</label>
+                <textarea name="desc" id="desc" required></textarea>
             </div>
             
             <button type="submit">Add Product</button>
         </form>
-        
-        <a href="index.php" class="back-link">← Back to all products</a>
     </div>
 </body>
-</html>
+</html> 
