@@ -11,6 +11,7 @@ A simple and elegant Laravel-based blog posts management system with full CRUD (
 - Modern, responsive UI with purple gradient theme
 - Mobile-friendly design
 - Clean and intuitive interface
+- **Create/Update Post** Validation Rules
 
 ## Database Structure
 ### Posts Table
@@ -156,10 +157,6 @@ Click the "View" button on any post to see:
 - **Form Validation**: Client and server-side validation
 - **Confirmation Dialogs**: Safety prompts before deletion
 - **Empty States**: Friendly messages when no posts exist
-
-## Validation Rules
-
-### Create/Update Post Validations
 
 ## For Troubleshooting
 ### Common Issues
