@@ -31,9 +31,6 @@
     </div>
     <div class="card-body">
         <div class="post-meta">
-            <span class="badge bg-primary">
-                <i class="fa fa-hashtag"></i> ID: {{ $post->id }}
-            </span>
             <span class="badge bg-success">
                 <i class="fa fa-calendar"></i> {{ $post->created_at->format('M d, Y') }}
             </span>
