@@ -203,13 +203,13 @@
     .btn-delete {
         background-color: #ef4444;
         color: white;
-        text-decoration: none; /* Remove underline if it's a link */
+        text-decoration: none;
     }
 
     .btn-delete:hover {
         background-color: #dc2626;
         transform: translateY(-1px);
-        color: white; /* Ensure text stays white on hover */
+        color: white;
     }
 
     .alert-overdue {
@@ -265,12 +265,10 @@
                 <i class="bi bi-person-circle"></i>
                 <span>{{ $todo->user->name }}</span>
             </div>
-            {{-- @if($todo->due_date) --}}
             <div class="meta-item">
                 <i class="bi bi-calendar-event"></i>
                 <span>Due {{ $todo->due_date->format('M d, Y') }}</span>
             </div>
-            {{-- @endif --}}
             <div class="meta-item">
                 <i class="bi bi-clock-history"></i>
                 <span>Created {{ $todo->created_at->diffForHumans() }}</span>
@@ -310,12 +308,8 @@
                     Due Date
                 </div>
                 <div class="detail-item-value">
-                    {{-- @if($todo->due_date) --}}
                         {{ $todo->due_date->format('F d, Y') }}
                         <small class="text-muted">({{ $todo->due_date->diffForHumans() }})</small>
-                    {{-- @else
-                        <span class="text-muted">No due date set</span>
-                    @endif --}}
                 </div>
             </div>
 
@@ -343,7 +337,6 @@
                 Description
             </div>
             <div class="info-content {{ $todo->description ? '' : 'empty' }}">
-                {{ $todo->description ?? 'No description provided for this todo.' }}
             </div>
         </div>
 
@@ -359,12 +352,6 @@
                     <span>Last updated: {{ $todo->updated_at->format('M d, Y \a\t g:i A') }}</span>
                 </div>
             @endif
-            {{-- @if($todo->deleted_at)
-                <div class="timestamp-item">
-                    <i class="bi bi-trash"></i>
-                    <span>Deleted: {{ $todo->deleted_at->format('M d, Y \a\t g:i A') }}</span>
-                </div>
-            @endif --}}
         </div>
 
         {{-- Action Bar --}}
