@@ -106,8 +106,8 @@
         border: none;
         cursor: pointer;
         transition: all 0.2s;
-        text-decoration: none;  /* Add this */
-        display: inline-block;  /* Add this */
+        text-decoration: none;
+        display: inline-block;
     }
 
     .btn-show {
@@ -344,12 +344,9 @@
                         <tr>
                             <td>
                                 <div class="todo-title">{{ $todo->title }}</div>
-                                {{-- @if($todo->description) --}}
                                 <small class="text-muted">{{ Str::limit($todo->description, 60) }}</small>
-                                {{-- @endif --}}
                             </td>
                             <td>
-                                {{-- @if($todo->due_date) --}}
                                 @php
                                     $isOverdue = !$todo->is_completed && $todo->due_date < now();
                                 @endphp
@@ -360,9 +357,6 @@
                                         <span class="badge bg-danger">Overdue</span>
                                     @endif
                                 </div>
-                                {{-- @else
-                                    <span class="text-muted">No due date</span>
-                                @endif --}}
                             </td>
                             <td>
                                 @if($todo->is_completed)
