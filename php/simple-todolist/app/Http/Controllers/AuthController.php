@@ -30,7 +30,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->intended(route('todos.index'))
                 ->with('success', 'Welcome back, ' . Auth::user()->name . '!');
-        }   //return redirect()->route('todos.index');
+        }
 
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
@@ -54,7 +54,6 @@ class AuthController extends Controller
             'terms' => 'required|accepted',
         ]);
 
-        //$user = User::create($validated);
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
