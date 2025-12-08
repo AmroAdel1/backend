@@ -33,19 +33,6 @@ A simple and elegant Laravel-based todo list management system with full CRUD (C
 
 ## Database Structure
 
-### Users Table
-```
-users
-├── id (Primary Key, Auto Increment)
-├── name (VARCHAR)
-├── email (VARCHAR, Unique)
-├── email_verified_at (TIMESTAMP, Nullable)
-├── password (VARCHAR)
-├── remember_token (VARCHAR, Nullable)
-├── created_at (TIMESTAMP)
-└── updated_at (TIMESTAMP)
-```
-
 ### Todos Table
 ```
 todos
@@ -60,6 +47,19 @@ todos
 ├── created_at (TIMESTAMP)
 ├── updated_at (TIMESTAMP)
 └── deleted_at (TIMESTAMP, Nullable) # Soft Delete
+```
+
+### Users Table
+```
+users
+├── id (Primary Key, Auto Increment)
+├── name (VARCHAR)
+├── email (VARCHAR, Unique)
+├── email_verified_at (TIMESTAMP, Nullable)
+├── password (VARCHAR)
+├── remember_token (VARCHAR, Nullable)
+├── created_at (TIMESTAMP)
+└── updated_at (TIMESTAMP)
 ```
 
 ### Password Reset Tokens Table
