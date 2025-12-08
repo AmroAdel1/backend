@@ -97,12 +97,6 @@
         padding-left: 1.95rem; /* Add a bit more left padding */
     }
 
-    /* Remove hover effect from the container */
-    /* Only the label and checkbox should look interactive */
-    /* .form-check:hover {
-        background-color: #f3f4f6;
-    } */
-
     .form-check-input {
         width: 1.5rem;
         height: 1.5rem;
@@ -194,13 +188,6 @@
     </div>
 
     <div class="form-card-body">
-        {{-- <div class="info-box">
-            <p>
-                <i class="bi bi-info-circle-fill"></i>
-                <strong>Editing:</strong> {{ $todo->title }}
-            </p>
-        </div> --}}
-
         <form method="POST" action="{{ route('todos.update', $todo->id) }}">
             @csrf
             @method('PUT')
@@ -235,7 +222,6 @@
                           name="description"
                           rows="4"
                           placeholder="Add more details about this task...">{{ old('description', $todo->description) }}</textarea>
-                {{-- <div class="form-text">Provide additional context or notes for this todo</div> --}}
                 @error('description')
                     <div class="invalid-feedback">
                         <i class="bi bi-exclamation-circle"></i> {{ $message }}
@@ -284,7 +270,7 @@
                                 🔴 High Priority
                             </option>
                         </select>
-                        @error('priority')    <!-- not important -->
+                        @error('priority')
                             <div class="invalid-feedback">
                                 <i class="bi bi-exclamation-circle"></i> {{ $message }}
                             </div>
@@ -311,7 +297,7 @@
 
             {{-- Action Buttons --}}
             <div class="btn-group-actions">
-                <a href="{{ route('todos.index') }}" class="btn btn-secondary">  <!--  {{ route('todos.show', $todo->id) }} -->
+                <a href="{{ route('todos.index') }}" class="btn btn-secondary">
                     <i class="bi bi-x-circle"></i> Cancel
                 </a>
                 <button type="submit" class="btn btn-primary">
