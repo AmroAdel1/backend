@@ -15,7 +15,6 @@ class TodoController extends Controller
     {
         // Get only the authenticated user's todos
         $todos = Auth::user()->todos()->latest()->get();
-        // $todos = Todo::All();
         return view('todos.index', compact('todos'));
     }
 
@@ -30,8 +29,6 @@ class TodoController extends Controller
     {
         // Check if user can create todos
         $this->authorize('create', Todo::class);
-        // $todos = Todo::All();
-        // $users = User::all();
         return view('todos.create');
     }
 
@@ -46,7 +43,6 @@ class TodoController extends Controller
             'priority' => 'required|in:low,medium,high',
             'due_date' => 'required|date|',
         ]);
-        //'user_id' => ['required','exists:users,id']
 
         // Automatically assign to authenticated user
         $validated['user_id'] = Auth::id();
@@ -58,15 +54,11 @@ class TodoController extends Controller
         // redirect
         return redirect()->route('todos.index')
             ->with('success', 'Todo created successfully');
-
-        // get data
-        //$data = $request->all();
     }
 
     public function edit(Todo $todo)
     {
         $this->authorize('update', $todo);
-        //$users = User::all();
         return view('todos.edit', compact('todo'));
     }
 
@@ -89,9 +81,6 @@ class TodoController extends Controller
         // redirect
         return redirect()->route('todos.show', $todo)
             ->with('success', 'Todo updated successfully');
-
-        // get data
-        // $data = $request->all();
     }
 
     public function destroy(Todo $todo)
@@ -119,7 +108,7 @@ class TodoController extends Controller
 
     /**
      * Display completed todos
-    */
+     */
     public function finished()
     {
         $completedTodos = Auth::user()
