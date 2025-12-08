@@ -29,10 +29,3 @@ Route::middleware('auth')->group(function () {
     Route::patch('/todos/{todo}/toggle', [TodoController::class, 'toggleComplete'])->name('todos.toggle');
 });
 
-/*
-// Redirect root to todos
-Route::get('/', function () {
-    return redirect()->route('todos.index');
-});
-*/
-
