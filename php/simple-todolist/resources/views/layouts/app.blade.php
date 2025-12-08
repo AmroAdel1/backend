@@ -102,11 +102,6 @@
                         </ul>
                     </div>
                 </div>
-                {{-- @else
-                <div class="d-flex gap-2">
-                    <a href="{{ route('auth.login') }}" class="btn btn-outline-primary">Login</a>
-                    <a href="{{ route('auth.register') }}" class="btn btn-primary">Register</a>
-                </div> --}}
                 @endauth
             </div>
         </div>
@@ -116,7 +111,7 @@
         {{-- Display Flash Messages --}}
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle-fill me-2"></i>   <!-- h5,p -->
+                <i class="bi bi-check-circle-fill me-2"></i>
                 {{ session('success') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
