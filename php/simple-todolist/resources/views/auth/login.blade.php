@@ -29,21 +29,6 @@
             </div>
         @endif
 
-        {{-- Validation Errors --}}
-        {{-- @if($errors->any())
-            <div class="alert alert-danger">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-                <div>
-                    <strong>Oops! Something went wrong.</strong>
-                    <ul style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        @endif --}}
-
         <form method="POST" action="{{ route('auth.login') }}">
             @csrf
 
@@ -162,5 +147,3 @@
 </script>
 @endpush
 @endsection
-
-<!-- is it possible to display password confirmation error under confirm password input field in laravel without the need to add confirm password field in database or not -->
