@@ -13,21 +13,6 @@
     </div>
 
     <div class="auth-body">
-        {{-- Error Messages --}}
-        {{-- @if($errors->any())
-            <div class="alert alert-danger">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-                <div>
-                    <strong>Please fix the following errors:</strong>
-                    <ul style="margin: 0.5rem 0 0 1.5rem; padding: 0;">
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        @endif --}}
-
         <form method="POST" action="{{ route('auth.register') }}">
             @csrf
 
@@ -115,15 +100,10 @@
                            class="form-control"
                            id="password_confirmation"
                            name="password_confirmation"
-                           placeholder="Re-enter your password">   <!-- error('password_confirmation') is-invalid enderror -->
+                           placeholder="Re-enter your password">
                     <button type="button" class="password-toggle" onclick="togglePassword('password_confirmation')">
                         <i class="bi bi-eye" id="password_confirmation-icon"></i>
                     </button>
-                    {{-- @error('password_confirmation')
-                        <div class="invalid-feedback">
-                            <i class="bi bi-exclamation-circle"></i> {{ $message }}
-                        </div>
-                    @enderror --}}
 
                     {{-- <div class="form-group">
                         <label for="password_confirmation">Confirm Password</label>
@@ -213,28 +193,6 @@
             this.style.borderColor = '#10b981';
         }
     });
-    // composer require laravel/socialite   // google login
 </script>
 @endpush
 @endsection
-
-
-<!--
-    1. Install Laravel Socialite
-Install the Socialite package via Composer:
-bash
-composer require laravel/socialite
-
-2. Configure Google OAuth Credentials
-Set up OAuth credentials in the Google Cloud Console. Create a new project, configure the OAuth consent screen, and create OAuth client ID credentials for a web application. You'll need to add your application's redirect URI (e.g., http://localhost:8000/auth/google/callback). Make sure to save the generated Client ID and Client Secret.
-3. Update Laravel Configuration
-Add the Google Client ID, Client Secret, and redirect URI to your .env file and configure the config/services.php file to use these environment variables for Google authentication.
-4. Prepare the Database
-Add a google_id column to your users table to store the unique Google user ID. Create a migration to add this nullable string column and then run the migration.
-5. Define Routes
-In your routes/web.php file, define two routes: one to initiate the Google redirect and another to handle the callback from Google. These routes should point to a dedicated controller.
-6. Create the Controller Logic
-Create a controller (e.g., GoogleAuthController) to manage the authentication flow. This controller will handle redirecting the user to Google using Socialite and processing the callback. In the callback method, Socialite retrieves the user's information from Google. You'll then use this information to find or create a user in your database, log them in, and redirect them to a specified page.
-7. Add the Button to Your View
-Finally, add a link in your login or registration Blade view that points to the route you defined for initiating the Google redirect. This link will serve as the "Sign up with Google" or "Continue with Google" button.
--->
