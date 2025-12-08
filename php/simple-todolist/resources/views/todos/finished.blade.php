@@ -431,20 +431,16 @@
                         </span>
                     </div>
 
-                    {{-- @if($todo->description) --}}
                     <div class="todo-item-description">
                         {{ Str::limit($todo->description, 120) }}
                     </div>
-                    {{-- @endif --}}
 
                     <div class="todo-item-footer">
                         <div class="todo-meta">
-                            {{-- @if($todo->due_date) --}}
                             <div class="meta-item">
                                 <i class="bi bi-calendar-check"></i>
                                 <span>Due: {{ $todo->due_date->format('M d, Y') }}</span>
                             </div>
-                            {{-- @endif --}}
                             <div class="meta-item">
                                 <i class="bi bi-clock"></i>
                                 <span>Created {{ $todo->created_at->diffForHumans() }}</span>
@@ -517,7 +513,7 @@
     function sortByRecent() {
         const items = Array.from(document.querySelectorAll('.todo-item'));
         const sorted = items.sort((a, b) => {
-            const timeA = parseInt(a.dataset.updated);     // dataset is a custom attribute // access all custom attributes
+            const timeA = parseInt(a.dataset.updated); 
             const timeB = parseInt(b.dataset.updated);
             return timeB - timeA; // Most recent first
         });
@@ -549,22 +545,6 @@
             todoList.appendChild(item);
         });
     }
-    // // Simple filter button interaction (for demonstration)
-    // document.querySelectorAll('.filter-btn').forEach(btn => {
-    //     //console.log('Setting up listener for:', btn.textContent);
-    //     btn.addEventListener('click', function() {      // click button to run function and display its properties
-    //         //console.log('🔥 BUTTON CLICKED! 🔥');
-    //         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    //         this.classList.add('active');
-    //         console.log(btn);
-    //         console.dir(btn);   // display button properties
-    //         //console.log('Active button:', btn);
-    //         if(btn.classList.contains('recent')){}
-    //         else if(btn.classList.contains('priority')){}
-    //         else if(btn.classList.contains('due-date')){}
-    //     });
-    // });
-    // //console.log('✅ All event listeners attached!');
 </script>
 @endpush
 @endsection
