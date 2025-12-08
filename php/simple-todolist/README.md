@@ -363,23 +363,22 @@ Navigate to `/todos` to see a list with:
 - Verify middleware is applied: `php artisan route:list`
 
 #### 5. IDE helper files
-To fix the Auth::user()->todos() syntax, try these steps:
-1. Generate IDE helper files (Recommended)
-Install the Laravel IDE Helper package:
-bashcomposer require --dev barryvdh/laravel-ide-helper
-Then generate the helper files:
-bashphp artisan ide-helper:generate
-php artisan ide-helper:models
-php artisan ide-helper:meta
-This will help your IDE understand the relationship methods.
-2. Restart your development server
-bash# Stop the server (Ctrl+C), then:
-php artisan serve
-3. Clear everything again
-bashphp artisan config:clear
-php artisan cache:clear
-php artisan optimize:clear
-composer dump-autoload
+- To fix the Auth::user()->todos() syntax
+   ```bash
+   composer require --dev barryvdh/laravel-ide-helper
+   php artisan ide-helper:generate
+   php artisan ide-helper:models
+   php artisan ide-helper:meta
+   ```
+- Restart your development server
+- Clear everything again
+  ```bash
+  php artisan config:clear
+  php artisan cache:clear
+  php artisan optimize:clear
+  composer dump-autoload
+  ```
+- This will help your IDE understand the relationship methods.
 
 #### 5. Foreign key constraint errors
 - Ensure user exists before creating todos
