@@ -230,7 +230,7 @@
                                 🔴 High Priority
                             </option>
                         </select>
-                        @error('priority')    <!-- not important -->
+                        @error('priority')
                             <div class="invalid-feedback">
                                 <i class="bi bi-exclamation-circle"></i> {{ $message }}
                             </div>
@@ -255,7 +255,7 @@
 @push('scripts')
 <script>
     // Auto-resize textarea
-    const textarea = document.getElementById('description');    // check if important   // for better UX
+    const textarea = document.getElementById('description');   // for better UX
     if (textarea) {
         textarea.addEventListener('input', function() {
             this.style.height = 'auto';
