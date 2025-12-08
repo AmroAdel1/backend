@@ -1,6 +1,6 @@
 # Simple Todo List Application
 
-A simple and elegant Laravel-based todo list management system with full CRUD (Create, Read, Update, Delete) operations, user authentication, and password recovery. Built with Laravel, modern UI components, and secure authentication features.
+A simple and elegant Laravel-based todo list management system with full CRUD (Create, Read, Update, Delete) operations, user authentication, and password recovery. Built with Laravel, Bootstrap 5, Font Awesome icons, modern UI components, and secure authentication features.
 
 ## Features
 
