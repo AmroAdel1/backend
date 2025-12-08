@@ -34,7 +34,7 @@ A simple and elegant Laravel-based todo list management system with full CRUD (C
 ## Database Structure
 
 ### Todos Table
-```
+```sql
 todos
 ├── id (Primary Key, Auto Increment)
 ├── title (VARCHAR)
@@ -50,7 +50,7 @@ todos
 ```
 
 ### Users Table
-```
+```sql
 users
 ├── id (Primary Key, Auto Increment)
 ├── name (VARCHAR)
@@ -63,7 +63,7 @@ users
 ```
 
 ### Password Reset Tokens Table
-```
+```sql
 password_reset_tokens
 ├── email (VARCHAR, Primary Key)
 ├── token (VARCHAR)
@@ -76,7 +76,6 @@ password_reset_tokens
 - **Cascade Delete**: When a user is deleted, all their todos are automatically deleted
 
 ## Project Structure
-
 ```
 project-root/
 │
@@ -91,11 +90,18 @@ project-root/
 │   │   ├── User.php                         # User model
 │   │   └── Todo.php                         # Todo model with SoftDeletes
 │   │
-│   └── Policies/
-│       └── TodoPolicy.php                   # Authorization rules for todos
+│   ├── Policies/
+│   │   └── TodoPolicy.php                   # Authorization rules for todos
+│   │
+│   └── Providers/
+│       └── AppServiceProvider.php           # Register Authorization rules for todos
 │
 ├── resources/
 │   └── views/
+│       ├── auth/
+│       │   ├── app.blade.php                # Main page layout
+│       │   ├── auth.blade.php               # Authentication page layout
+│       │
 │       ├── auth/
 │       │   ├── login.blade.php              # Login form
 │       │   ├── register.blade.php           # Registration form
@@ -111,6 +117,7 @@ project-root/
 │           └── finished.blade.php           # Completed todos list
 │
 ├── routes/
+│   ├── console.php                          # Command definitions
 │   └── web.php                              # Route definitions
 │
 └── database/
@@ -149,10 +156,7 @@ PATCH  /todos/{id}/toggle     - Toggle todo completion status
 GET    /todos/finished        - View completed todos
 ```
 
-## Installation
-
 ### Steps
-
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
@@ -210,7 +214,6 @@ GET    /todos/finished        - View completed todos
    ```
 
 ## Usage Examples
-
 ### 1. Creating an Account
 - Navigate to `/register`
 - Enter your name, email, and password
@@ -263,7 +266,6 @@ Navigate to `/todos` to see a list with:
 5. Login with your new credentials
 
 ## UI Features
-
 - **Modern Design**: Clean and intuitive interface
 - **Responsive Layout**: Works perfectly on desktop, tablet, and mobile
 - **Priority Colors**: Visual indicators for Low (green), Medium (yellow), High (red)
@@ -274,7 +276,6 @@ Navigate to `/todos` to see a list with:
 - **Flash Messages**: Success/error notifications
 
 ## Security Features
-
 - **Authentication Required**: All todo operations require login
 - **Authorization Policy**: Users can only manage their own todos
 - **CSRF Protection**: All forms protected against cross-site attacks
@@ -282,10 +283,8 @@ Navigate to `/todos` to see a list with:
 - **Secure Password Reset**: Token-based reset with expiration
 - **SQL Injection Protection**: Eloquent ORM prevents injection attacks
 
-## 🚧 Known Limitations & Future Improvements
-
+## Known Limitations & Future Improvements
 ### Pending Features
-
 #### 1. Responsive Design
 - **Status**: Partially implemented
 - **Issue**: Some pages may not be fully optimized for mobile devices
@@ -340,9 +339,7 @@ Navigate to `/todos` to see a list with:
   - Google provider setup
 
 ## Troubleshooting
-
 ### Common Issues
-
 #### 1. Styling not working
 - Clear browser cache: `Ctrl + Shift + Delete`
 - Run `npm run dev` to compile assets
@@ -371,45 +368,10 @@ Navigate to `/todos` to see a list with:
 - Run `php artisan migrate:fresh` if needed (WARNING: deletes all data)
 
 ## Technologies Used
-
 - **Backend**: Laravel 10.x/11.x
-- **Frontend**: Blade Templates, Bootstrap 5 / Tailwind CSS
-- **Database**: MySQL/MariaDB/PostgreSQL/SQLite
-- **Authentication**: Laravel Breeze / Custom Auth
+- **Frontend**: Blade Templates, Bootstrap 5
+- **Database**: MySQL
+- **Authentication**: Custom Auth
 - **Email**: Laravel Mail
 - **PHP**: 8.1+
-- **Icons**: Font Awesome 6 / Heroicons
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request, especially for the pending features listed above.
-
-### Priority Contributions Needed
-1. Mobile responsive improvements for all pages
-2. Terms of Service and Privacy Policy pages
-3. Settings page with avatar upload functionality
-4. Google OAuth integration (Laravel Socialite)
-5. Advanced filtering (by priority, due date, status)
-6. Todo categories/tags system
-7. Todo sharing between users
-
-### How to Contribute
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
-
-## License
-
-This project is open-sourced software licensed under the MIT license.
-
-## Support
-
-For issues, questions, or suggestions, please open an issue in the repository.
-
----
-
-**Version**: 1.0.0  
-**Status**: Beta (Core features complete, enhancements pending)  
-**Last Updated**: December 2025
+- **Icons**: Font Awesome 6
