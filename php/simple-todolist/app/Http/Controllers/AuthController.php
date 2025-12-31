@@ -75,9 +75,4 @@ class AuthController extends Controller
         return redirect()->route('auth.login')
             ->with('success', 'You have been logged out successfully.');
     }
-
-    public function settings()    // Show settings page (placeholder)
-    {
-        return view('auth.settings');
-    }
 }
