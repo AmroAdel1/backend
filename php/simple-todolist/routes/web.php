@@ -23,7 +23,6 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     // Auth routes
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-    Route::get('/settings', [AuthController::class, 'settings'])->name('auth.settings');
 
     // Profile routes
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
