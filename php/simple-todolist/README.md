@@ -399,3 +399,4 @@ Navigate to `/todos` to see a list with:
 - **Email**: Laravel Mail
 - **PHP**: 8.1+
 - **Icons**: Font Awesome 6
+- **Crop Tool**: Cropper.js
