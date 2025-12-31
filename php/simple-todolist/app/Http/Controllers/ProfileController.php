@@ -34,7 +34,7 @@ class ProfileController extends Controller
     {
         $validated = $request->validate([
             'current_password' => ['required', 'current_password'],
-            'password' => ['required', 'confirmed', Password::min(8)],   // Rules\Password::defaults()
+            'password' => ['required', 'confirmed', Password::min(8)],
         ]);
 
         $user = Auth::user();
@@ -53,7 +53,7 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         // Remove avatar
-        if ($request->has('remove_avatar')) {           // get avatar input name for remove
+        if ($request->has('remove_avatar')) {
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);
                 $user->update(['avatar' => null]);
@@ -62,7 +62,7 @@ class ProfileController extends Controller
         }
 
         // Check if cropped image data exists
-        if ($request->has('cropped_image')) {          // get cropped image input name
+        if ($request->has('cropped_image')) {
             // Decode base64 image
             $imageData = $request->input('cropped_image');
             $imageData = str_replace('data:image/png;base64,', '', $imageData);
@@ -92,7 +92,7 @@ class ProfileController extends Controller
             Storage::disk('public')->delete($user->avatar);
         }
 
-        $path = $request->file('avatar')->store('avatars', 'public');       // get avatar input name
+        $path = $request->file('avatar')->store('avatars', 'public');
         $user->update(['avatar' => $path]);
 
         return back()->with('success', 'Avatar updated successfully!');
@@ -123,31 +123,3 @@ class ProfileController extends Controller
             ->with('success', 'Your account has been deleted successfully.');
     }
 }
-
-
-
-/*
-    asset() ==> generates publicly accessible URL for app static assets(images, CSS, and JS files).
-Key Features
-Points to the public directory: It automatically prepends the base URL of your application to the given path, assuming the assets are stored within the public directory (or a symlinked location like public/storage).
-Environment Agnostic: This helper is particularly useful because it dynamically adjusts the generated URL based on your application's configuration (specifically the APP_URL or ASSET_URL environment variables). This prevents broken links when deploying an application from a local environment to a live server, or when moving assets to a Content Delivery Network (CDN).
-Protocol Aware: By default, it uses the same URL scheme (HTTP or HTTPS) as the current request, or you can explicitly force HTTPS using the second optional parameter.
-Usage Example
-In your Blade templates, you would use the asset() function like this:
-For a CSS file in public/css/style.css:
-blade
-<link rel="stylesheet" href="{{ asset('css/style.css') }}">
-For an image in public/img/logo.png:
-blade
-<img src="{{ asset('img/logo.png') }}" alt="Logo">
-For a JavaScript file in public/js/app.js:
-blade
-<script src="{{ asset('js/app.js') }}"></script>
-
-Comparison with Other Helpers
-Function 	Purpose
-asset($path)	Generates a URL for files in the public directory (CSS, JS, images).
-url($path)	Generates a fully qualified URL to a given path within the application.
-route($name)	Generates a URL to a named application route.
-Storage::url($path)	Generates a URL for dynamically uploaded files (e.g., user avatars) often stored in storage/app/public and symlinked to the public directory.
-*/
