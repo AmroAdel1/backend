@@ -540,7 +540,7 @@
                 <div class="avatar-section">
                     <div class="avatar-preview" id="avatarPreview" onclick="viewAvatar()">
                         @if(auth()->user()->avatar)
-                            <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" id="currentAvatar">    <!-- look for public folder -->
+                            <img src="{{ asset('storage/' . auth()->user()->avatar) }}" alt="Avatar" id="currentAvatar">
                         @else
                             <i class="bi bi-person-circle"></i>
                         @endif
@@ -559,7 +559,7 @@
                                        id="avatar"
                                        name="avatar"
                                        accept="image/*"
-                                       onchange="handleImageSelect(event)">     <!-- accept only image files/no validation -->
+                                       onchange="handleImageSelect(event)">
                             </div>
                             @if(auth()->user()->avatar)
                                 <button type="submit" name="remove_avatar" value="1" class="btn-remove">
@@ -576,7 +576,7 @@
                     </div>
                 </div>
                 <input type="hidden" name="cropped_image" id="croppedImage">
-                <div style="margin-top: 1rem;" id="saveButtonWrapper"></div>        <!-- save photo button -->
+                <div style="margin-top: 1rem;" id="saveButtonWrapper"></div>
             </form>
         </div>
     </div>
@@ -732,10 +732,10 @@
 </div>
 
 {{-- View Avatar Modal --}}
-<div id="viewModal" class="modal" onclick="closeViewModal()">                   <!-- whole modal -->    <!-- close when click on area of modal -->
-    <div class="modal-content-wrapper" onclick="event.stopPropagation()">       <!-- square modal -->
-        <span class="modal-close" onclick="closeViewModal()">&times;</span>     <!-- close button -->   <!-- close when click on x button -->
-        <div id="viewModalContent"></div>                                       <!-- modal content -->
+<div id="viewModal" class="modal" onclick="closeViewModal()">                 
+    <div class="modal-content-wrapper" onclick="event.stopPropagation()">      
+        <span class="modal-close" onclick="closeViewModal()">&times;</span>     
+        <div id="viewModalContent"></div>                                      
     </div>
 </div>
 
@@ -824,9 +824,9 @@
         const modal = document.getElementById('viewModal');
         const content = document.getElementById('viewModalContent');
 
-        // Check if temp cropped image exists (before saving)             // cropped img and about to click save
+        // Check if temp cropped image exists (before saving)            
         if (tempCroppedImage) {
-            content.innerHTML = `<img src="${tempCroppedImage}" alt="Avatar Preview">`;         // show cropped img
+            content.innerHTML = `<img src="${tempCroppedImage}" alt="Avatar Preview">`;         
             modal.classList.add('active');       // add active when click photo
             return;
         }
@@ -853,7 +853,7 @@
         document.getElementById('viewModal').classList.remove('active');
     }
 
-    function handleImageSelect(event) {           //
+    function handleImageSelect(event) {          
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -950,35 +950,3 @@
 </script>
 @endpush
 @endsection
-
-
-<!--
-    submit a form and pass specific data to the server.
-Functionality Explained
-<button type="submit">: This attribute specifies that the button acts as a submit trigger for the form it is contained within (or explicitly linked to via the form attribute). Clicking it sends the form's data to the form handler.
-name="remove_avatar": This gives the button a name. When the form is submitted by this specific button, a key-value pair will be included in the form data, where the key is remove_avatar.
-value="1": This is the value associated with the name attribute. When the form is submitted, the server receives the data as remove_avatar=1.
-class="btn-remove": This assigns a CSS class to the button. This class is used for styling the button (e.g., color, size, icon) using a corresponding CSS file.
-Common Use Case
-This exact structure is often used in user profile management systems (like in the source code snippets found) where a user can remove their profile picture or "avatar". When the user clicks the "Remove" button, the form data sent to the server (e.g., remove_avatar=1) signals to the backend script that the avatar deletion logic should be executed for the current user.
--->
-
-<!--
-    The provided HTML code snippets define a hidden input field intended to store data, likely a cropped image in base64 format, and an empty div that would typically contain a button to save or submit the form data using JavaScript.
-Here is a breakdown of the code:
-<input type="hidden" name="cropped_image" id="croppedImage">
-type="hidden": This attribute specifies that the input field should be hidden from the user interface. It is used to pass data to the server when a form is submitted without the user seeing or modifying it.
-name="cropped_image": This assigns a name to the input field, which is used to reference its value when the form data is sent to the server.
-id="croppedImage": This provides a unique identifier for the element, primarily used by JavaScript or CSS to interact with this specific field. In the context of image cropping, JavaScript is used to get the cropped image's data (often as a base64 encoded string) and store it in this hidden input.
-<div style="margin-top: 1rem;" id="saveButtonWrapper"></div>
-This is a standard HTML div element.
-It has an id of saveButtonWrapper, which suggests it is a container where a button (or other elements) will be dynamically added or managed using JavaScript.
-The inline style="margin-top: 1rem;" adds some vertical spacing above this container.
-Purpose
-The elements are typically part of a webpage feature that allows users to upload and crop an image. The workflow involves:
-A user uploads an image.
-The user crops the image in a visible area.
-JavaScript code captures the final cropped image data.
-This data is then placed into the croppedImage hidden input field.
-When a "Save" or "Submit" button (likely placed in saveButtonWrapper) is clicked, the entire form is sent to the server, including the hidden image data, for final processing and saving.
--->
