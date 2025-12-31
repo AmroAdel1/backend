@@ -110,7 +110,7 @@ project-root/
 │
 ├── resources/
 │   └── views/
-│       ├── auth/
+│       ├── layouts/
 │       │   ├── app.blade.php                # Main page layout
 │       │   ├── auth.blade.php               # Authentication page layout
 │       │
@@ -118,12 +118,14 @@ project-root/
 │       │   ├── login.blade.php              # Login form
 │       │   ├── register.blade.php           # Registration form
 │       │   ├── forgot-password.blade.php    # Request password reset
-│       │   ├── reset-password.blade.php     # Reset password form
-│       │   └── settings.blade.php           # User settings
+│       │   └── reset-password.blade.php     # Reset password form
 │       │
 │       ├── mail/
 │       │   ├── contact-auto-reply.blade.php          # Contact Auto Reply View 
 │       │   ├── contact-form-mail.blade.php           # Contact Form Mail View
+│       │
+│       ├── profile/
+│       │   └── index.blade.php              # User Profile Page
 │       │
 │       └── todos/
 │       │   ├── index.blade.php              # List all active todos
@@ -135,7 +137,7 @@ project-root/
 │       ├── about.blade.php
 │       ├── contact-us.blade.php
 │       ├── privacy-policy.blade.php
-│       ├── terms-of-service.blade.php
+│       └── terms-of-service.blade.php
 │
 ├── routes/
 │   ├── console.php                          # Command definitions
@@ -145,6 +147,7 @@ project-root/
     └── migrations/
         ├── create_users_table.php
         ├── create_todos_table.php
+        ├── add_avatar_to_users_table.php    
         └── create_password_reset_tokens_table.php
 ```
 
@@ -165,7 +168,16 @@ POST /reset-password         - Update password
 ### Authenticated Routes
 ```php
 POST   /logout                - Log out current user
-GET    /settings              - User settings page
+GET    /profile               - User profile page
+PUT    /profile               - Update user name
+PUT    /profile/password      - Update user password
+POST   /profile/avatar        - Update user avatar
+DELETE /profile               - Delete user account
+GET    /about-us              - About Us page
+GET    /privacy-policy        - Privacy Policy page
+GET    /terms-of-service      - Terms and Service page
+GET    /contact-us            - Contact Us page
+POST   /contact-us            - Create Contact Form
 GET    /todos                 - List all active todos
 POST   /todos                 - Create new todo
 GET    /todos/create          - Show create todo form
@@ -311,40 +323,7 @@ Navigate to `/todos` to see a list with:
 - **Issue**: Some pages may not be fully optimized for mobile devices
 - **Todo**: Add responsive CSS for better mobile experience on all pages
 
-#### 2. Terms & Privacy Pages
-- **Status**: Not implemented
-- **Location**: Register page
-- **Todo**: Create terms of service and privacy policy blade templates
-- **Files needed**:
-  - `resources/views/auth/terms.blade.php`
-  - `resources/views/auth/privacy.blade.php`
-- **Routes needed**:
-  ```php
-  Route::get('/terms', function () {
-      return view('auth.terms');
-  })->name('terms');
-  
-  Route::get('/privacy', function () {
-      return view('auth.privacy');
-  })->name('privacy');
-  ```
-
-#### 3. User Settings Page
-- **Status**: Route exists but functionality not implemented
-- **Missing features**:
-  - Avatar upload functionality
-  - Profile picture display and storage
-  - Image validation (size, type)
-  - Profile information update (name, email)
-  - Password change within settings
-- **Route**: `/settings`
-- **Required implementation**:
-  - Add `avatar` column to users table
-  - File upload handling in AuthController
-  - Image storage configuration
-  - Form for profile updates
-
-#### 4. Social Authentication
+#### 2. Social Authentication
 - **Status**: Not implemented
 - **Missing providers**:
   - "Continue with Google" login button
@@ -405,6 +384,9 @@ Navigate to `/todos` to see a list with:
 - Ensure user exists before creating todos
 - Check user_id is set correctly
 - Run `php artisan migrate:fresh` if needed (WARNING: deletes all data)
+
+#### 6. Storage Link
+- Ensure user exists before creating todos
 
 ## Technologies Used
 - **Backend**: Laravel 10.x/11.x
