@@ -386,8 +386,10 @@ Navigate to `/todos` to see a list with:
 - Run `php artisan migrate:fresh` if needed (WARNING: deletes all data)
 
 #### 6. Storage Link
-- Ensure user exists before creating todos
-
+- Ensure to create storage link
+  ```bash
+  php artisan storage:link
+  ```
 ## Technologies Used
 - **Backend**: Laravel 10.x/11.x
 - **Frontend**: Blade Templates, Bootstrap 5
