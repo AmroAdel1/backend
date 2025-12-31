@@ -16,10 +16,9 @@ class ContactAutoReply extends Mailable
     /**
      * Create a new message instance.
      */
-    //$this->from(config('mail.from.address'), config('mail.from.name'))
     public function __construct()
     {
-        //
+        $this->from(config('mail.from.address'), config('mail.from.name'))
     }
 
     /**
