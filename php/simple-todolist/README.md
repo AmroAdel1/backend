@@ -113,7 +113,7 @@ project-root/
 │   └── views/
 │       ├── layouts/
 │       │   ├── app.blade.php                # Main page layout
-│       │   ├── auth.blade.php               # Authentication page layout
+│       │   └── auth.blade.php               # Authentication page layout
 │       │
 │       ├── auth/
 │       │   ├── login.blade.php              # Login form
@@ -123,7 +123,7 @@ project-root/
 │       │
 │       ├── mail/
 │       │   ├── contact-auto-reply.blade.php          # Contact Auto Reply View 
-│       │   ├── contact-form-mail.blade.php           # Contact Form Mail View
+│       │   └── contact-form-mail.blade.php           # Contact Form Mail View
 │       │
 │       ├── profile/
 │       │   └── index.blade.php              # User Profile Page
