@@ -88,9 +88,15 @@ project-root/
 ├── app/
 │   ├── Http/
 │   │   └── Controllers/
-│   │       ├── AuthController.php           # Authentication logic
-│   │       ├── TodoController.php           # Todo CRUD operations
-│   │       └── ForgotPasswordController.php # Password reset logic
+│   │       ├── AuthController.php               # Authentication logic
+│   │       ├── TodoController.php               # Todo CRUD operations
+│   │       ├── ProfileController.php            # Profile Functionality
+│   │       ├── ContactController.php            # Contact Form Submittion
+│   │       └── ForgotPasswordController.php     # Password reset logic
+│   │
+│   ├── Mail/
+│   │   ├── ContactAutoReply.php                 # Contact Auto Reply Mail
+│   │   └── ContactFormMail.php                  # Contact Form Mail
 │   │
 │   ├── Models/
 │   │   ├── User.php                         # User model
@@ -115,12 +121,21 @@ project-root/
 │       │   ├── reset-password.blade.php     # Reset password form
 │       │   └── settings.blade.php           # User settings
 │       │
+│       ├── mail/
+│       │   ├── contact-auto-reply.blade.php          # Contact Auto Reply View 
+│       │   ├── contact-form-mail.blade.php           # Contact Form Mail View
+│       │
 │       └── todos/
-│           ├── index.blade.php              # List all active todos
-│           ├── create.blade.php             # Create new todo
-│           ├── edit.blade.php               # Edit existing todo
-│           ├── show.blade.php               # View todo details
-│           └── finished.blade.php           # Completed todos list
+│       │   ├── index.blade.php              # List all active todos
+│       │   ├── create.blade.php             # Create new todo
+│       │   ├── edit.blade.php               # Edit existing todo
+│       │   ├── show.blade.php               # View todo details
+│       │   └── finished.blade.php           # Completed todos list
+│       │
+│       ├── about.blade.php
+│       ├── contact-us.blade.php
+│       ├── privacy-policy.blade.php
+│       ├── terms-of-service.blade.php
 │
 ├── routes/
 │   ├── console.php                          # Command definitions
