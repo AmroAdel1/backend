@@ -61,6 +61,7 @@ users
 ├── id (Primary Key, Auto Increment)
 ├── name (VARCHAR)
 ├── email (VARCHAR, Unique)
+├── avatar (VARCHAR)        # added later
 ├── email_verified_at (TIMESTAMP, Nullable)
 ├── password (VARCHAR)
 ├── remember_token (VARCHAR, Nullable)
