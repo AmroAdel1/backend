@@ -26,6 +26,7 @@ A simple and elegant Laravel-based todo list management system with full CRUD (C
 
 #### Profile Management
 - **Add/Update Avatar Photo** - Add, Update, or Remove avatar photo
+- **Change Name** - Change current user name
 - **Change Password** - Change current password
 - **Delete Account** - Delete user account and redirect to login page
 
