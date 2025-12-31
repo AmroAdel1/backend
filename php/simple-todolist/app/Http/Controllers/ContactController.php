@@ -23,7 +23,7 @@ class ContactController extends Controller
         ]);
 
         // Send email using Mailable class
-        Mail::to(config('mail.from.address'))->send(new ContactFormMail($validated));   // Send email (configure mail settings in .env first)
+        Mail::to(config('mail.from.address'))->send(new ContactFormMail($validated));   
         Mail::to($validated['email'])->send(new ContactAutoReply());                    // Send auto-reply to sender
 
         return redirect()->route('todos.index')
