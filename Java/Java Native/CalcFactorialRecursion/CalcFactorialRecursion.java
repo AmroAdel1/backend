@@ -15,12 +15,28 @@ public class CalcFactorialRecursion {
 
   public static void main(String[] args) {
     try (Scanner sc = new Scanner(System.in)) {
-      System.out.println("Enter a number: ");
-      int num = sc.nextInt();
-      int factorialResult = CalcFactorialUsingRecursion(num);
-      System.out.println("The Factorial of " + num + " is " + factorialResult);
-    } catch (Exception e) {
-      System.out.println(e);
+
+      // Keeps prompting the user until a valid input is given.
+      while (true) {
+        System.out.println("Enter a number: ");
+        
+        if (!sc.hasNextInt()) {
+          System.out.println("Invalid input. Please enter a number, not a character.");
+          sc.next();
+          continue;    // re-prompt
+        }
+
+        int num = sc.nextInt();
+
+        if (num <= 0) {
+          System.out.println("Invalid input. Can't calculate the factorial of a Negative Number or Zero.");
+          continue;
+        }
+
+        int factorialResult = CalcFactorialUsingRecursion(num);
+        System.out.println("The Factorial of " + num + " is " + factorialResult);
+        break;
+      }
     }
   }
 }
