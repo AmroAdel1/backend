@@ -1,4 +1,5 @@
 package simpleCalc;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /* Simple Calculator */
@@ -34,7 +35,7 @@ public class SimpleCalc {
       }
       System.out.println("Result: " + result);
     }
-    catch (ArithmeticException e) {
+    catch (ArithmeticException | InputMismatchException e) {
       System.out.println(e.getMessage());
     }
   }
