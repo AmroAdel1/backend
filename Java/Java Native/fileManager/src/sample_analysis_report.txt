@@ -1,0 +1,73 @@
+Text Analysis Report for: sample
+========================================
+Basic Statistics:
+  Characters (with spaces): 375
+  Characters (no spaces):   309
+  Words:                    63
+  Lines:                    7
+  Sentences:                9
+  Paragraphs:               4
+
+Word Analysis:
+  Longest word:            'characters' (10 characters)
+  Average word length:     4.73 characters
+  Most frequent word:      'the' (appears 6 times)
+
+Top 10 Most Frequent Words:
+---------------------------
+ 1. the             : 6 times
+ 2. text            : 4 times
+ 3. this            : 3 times
+ 4. is              : 3 times
+ 5. sentences       : 2 times
+ 6. file            : 2 times
+ 7. analyzer        : 2 times
+ 8. and             : 2 times
+ 9. should          : 2 times
+10. words           : 2 times
+
+Detailed Word Frequency:
+------------------------
+a                    : 1
+also                 : 1
+analyzer             : 2
+and                  : 2
+another              : 1
+at                   : 1
+brown                : 1
+characters           : 1
+contains             : 1
+count                : 1
+display              : 1
+dog                  : 1
+end                  : 1
+file                 : 2
+find                 : 1
+for                  : 1
+fox                  : 1
+frequent             : 1
+hello                : 1
+is                   : 3
+it                   : 2
+jumps                : 1
+lazy                 : 1
+look                 : 1
+most                 : 1
+multiple             : 1
+of                   : 1
+our                  : 1
+over                 : 1
+paragraph            : 1
+properly             : 1
+quick                : 1
+sample               : 2
+sentences            : 2
+should               : 2
+statistics           : 1
+testing              : 1
+text                 : 4
+that                 : 1
+the                  : 6
+this                 : 3
+words                : 2
+world                : 1

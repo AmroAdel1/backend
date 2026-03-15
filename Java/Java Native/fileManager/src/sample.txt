@@ -1,0 +1,7 @@
+The quick brown fox jumps over the lazy dog. This is a sample text file for testing the text analyzer.
+
+Hello world! This is another paragraph. It contains multiple sentences. Look at that.
+
+The text analyzer should count words, characters, and sentences properly. It should also find the most frequent words and display statistics.
+
+This is the end of our sample text file.
