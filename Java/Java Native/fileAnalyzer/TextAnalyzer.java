@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class TextAnalyzer {
     private static final Pattern WORD_PATTERN = Pattern.compile("[^a-zA-Z0-9']");       // compiled once, reused many times
     private static final Pattern SENTENCE_PATTERN = Pattern.compile("[.!?]");
+    private static final Pattern PARAGRAPH_PATTERN = Pattern.compile("\n\\s*\n");
 
     public TextStatistics analyzeText(String content, String filename) {
         TextStatistics stats = new TextStatistics(filename);
@@ -22,11 +23,8 @@ public class TextAnalyzer {
         String[] lines = content.split("\n");
         stats.setLineCount(lines.length);
 
-        // Sentence count
-        stats.setSentenceCount(countSentences(content));
-
-        // Paragraph count
-        stats.setParagraphCount(countParagraphs(content));
+        stats.setSentenceCount(countSentences(content));                    // Sentence count
+        stats.setParagraphCount(countParagraphs(content));                  // Paragraph count
 
         // Word analysis
         analyzeWords(content, stats);
@@ -50,7 +48,7 @@ public class TextAnalyzer {
     private int countParagraphs(String content) {
         if (content.trim().isEmpty()) return 0;
 
-        String[] paragraphs = content.split("\n\\s*\n");
+        String[] paragraphs = PARAGRAPH_PATTERN.split(content);
         int count = 0;
         for (String paragraph : paragraphs) {
             if (paragraph.trim().length() > 0) {

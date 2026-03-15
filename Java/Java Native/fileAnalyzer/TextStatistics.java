@@ -1,9 +1,12 @@
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Comparator;
 
-public class TextStatistics {         // Data Model
+// Data Model
+public class TextStatistics {
     private String filename;
     private int characterCount;
     private int characterCountNoSpaces;
@@ -14,7 +17,7 @@ public class TextStatistics {         // Data Model
     private Map<String, Integer> wordFrequency;
     private String longestWord;
     private double averageWordLength;
-    private String mostFrequentWord;
+    private String mostFrequentWord;   // can't initialize because it will be calculated later
 
     public TextStatistics(String filename) {
         this.filename = filename;
@@ -52,10 +55,20 @@ public class TextStatistics {         // Data Model
 
     // Get top N most frequent words
     public List<Map.Entry<String, Integer>> getTopWords(int n) {
-        List<Map.Entry<String, Integer>> entries = new ArrayList<>(wordFrequency.entrySet());
-        entries.sort((a, b) -> b.getValue().compareTo(a.getValue()));
+        PriorityQueue<Map.Entry<String, Integer>> heap =
+            new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));      // use a min-heap, only track top N        // Creates empty heap that sorts by word count (value), smallest count at top.
 
-        return entries.subList(0, Math.min(n, entries.size()));
+        // Loop through every word
+        for (Map.Entry<String, Integer> entry : wordFrequency.entrySet()) {
+            heap.offer(entry);          // add word to heap
+            if (heap.size() > n)        // if heap exceeds n
+                heap.poll();            // remove smallest count
+        }
+
+        // Convert heap to sorted list
+        List<Map.Entry<String, Integer>> result = new ArrayList<>(heap);
+        result.sort((a, b) -> b.getValue().compareTo(a.getValue()));
+        return result;
     }
 
     @Override

@@ -1,6 +1,7 @@
 import java.io.*;
 import java.util.*;
 
+// UI Logic
 public class TextAnalysisApp {
     private TextAnalyzer analyzer;
     private Scanner scanner;
@@ -12,32 +13,30 @@ public class TextAnalysisApp {
 
     private void analyzeFile() {
         System.out.println("\n----- Analyze Text File -----");
-        System.out.print("Enter file path: ");
-        String filePath = scanner.nextLine().trim();
-
-        if (!FileManager.fileExists(filePath)) {
+        String filePath = getStringInput("Enter file path: ");
+        
+        boolean fileExists = FileManager.fileExists(filePath);
+        if (!fileExists) {
             System.out.println("Error: File does not exist!");
             return;
         }
 
         try {
-            // Read file content
-            String content = FileManager.readFile(filePath);
-
-            // Analyze text
+            String content = FileManager.readFile(filePath);                            // Read file content
             String filename = FileManager.getFileNameWithoutExtension(filePath);
+            
+            // Analyze text
             TextStatistics stats = analyzer.analyzeText(content, filename);
 
             // Display results
             analyzer.displayStatistics(stats);
 
             // Ask to save report
-            if (getYesNoInput("\nWould you like to save this report? (y/n): ")) {
+            if (getConfirmationInput("\nWould you like to save this report? (y/n or yes/no): ")) {
                 String outputPath = generateOutputPath(filePath);
                 analyzer.generateReport(stats, outputPath);
                 System.out.println("Report saved to: " + outputPath);
             }
-
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         } catch (Exception e) {
@@ -47,13 +46,22 @@ public class TextAnalysisApp {
 
     private void compareFiles() {
         System.out.println("\n----- Compare Two Files -----");
-        System.out.print("Enter first file path: ");
-        String filePath1 = scanner.nextLine().trim();
-        System.out.print("Enter second file path: ");
-        String filePath2 = scanner.nextLine().trim();
+        String filePath1 = getStringInput("Enter first file path: ");
+        String filePath2 = getStringInput("Enter second file path: ");
 
-        if (!FileManager.fileExists(filePath1) || !FileManager.fileExists(filePath2)) {
-            System.out.println("Error: One or both files do not exist!");
+        boolean file1Exists = FileManager.fileExists(filePath1);
+        boolean file2Exists = FileManager.fileExists(filePath2);
+
+        if (!file1Exists && !file2Exists) {
+            System.out.println("Both files not found: " + filePath1 + ", " + filePath2); 
+            return;
+        }
+        else if (!file1Exists) {
+            System.out.println("First file not found:  " + filePath1); 
+            return;
+        }
+        else if (!file2Exists) {
+            System.out.println("Second file not found: " + filePath2); 
             return;
         }
 
@@ -62,10 +70,8 @@ public class TextAnalysisApp {
             String content1 = FileManager.readFile(filePath1);
             String content2 = FileManager.readFile(filePath2);
 
-            TextStatistics stats1 = analyzer.analyzeText(content1,
-                    FileManager.getFileNameWithoutExtension(filePath1));
-            TextStatistics stats2 = analyzer.analyzeText(content2,
-                    FileManager.getFileNameWithoutExtension(filePath2));
+            TextStatistics stats1 = analyzer.analyzeText(content1, FileManager.getFileNameWithoutExtension(filePath1));
+            TextStatistics stats2 = analyzer.analyzeText(content2, FileManager.getFileNameWithoutExtension(filePath2));
 
             // Display comparison
             displayComparison(stats1, stats2);
@@ -77,8 +83,7 @@ public class TextAnalysisApp {
 
     private void viewFileContent() {
         System.out.println("\n----- View File Content -----");
-        System.out.print("Enter file path: ");
-        String filePath = scanner.nextLine().trim();
+        String filePath = getStringInput("Enter file path: ");
 
         if (!FileManager.fileExists(filePath)) {
             System.out.println("Error: File does not exist!");
@@ -93,7 +98,6 @@ public class TextAnalysisApp {
             for (int i = 0; i < lines.size(); i++) {
                 System.out.printf("%4d: %s\n", i + 1, lines.get(i));
             }
-
         } catch (IOException e) {
             System.out.println("Error reading file: " + e.getMessage());
         }
@@ -139,13 +143,22 @@ public class TextAnalysisApp {
         }
     }
 
-    private boolean getYesNoInput(String prompt) {
+    private String getStringInput(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim();
+            if (!input.isEmpty()) return input;
+            System.out.println("Input cannot be empty. Please try again.");
+        }    
+    }
+
+    private boolean getConfirmationInput(String prompt) {
         while (true) {
             System.out.print(prompt);
             String input = scanner.nextLine().trim().toLowerCase();
             if (input.equals("y") || input.equals("yes")) return true;
             if (input.equals("n") || input.equals("no"))  return false;
-            System.out.println("✘ Please enter 'y' or 'n'.");
+            System.out.println("Please enter 'y' or 'n'.");
         }
     }
 

@@ -1,0 +1,75 @@
+========================================
+  SAMPLE TEST FILE FOR JAVA FILE OPERATIONS
+========================================
+
+LINE 1: Hello, World! This is a sample text file.
+LINE 2: Java file operations test - Reading line by line.
+LINE 3: BufferedReader and FileReader can read this content.
+LINE 4: You can also use Files.readAllLines() from java.nio.
+LINE 5: This is the fifth line with a number: 12345.
+
+----------------------------------------
+SECTION: Special Characters
+----------------------------------------
+Symbols   : @#$%^&*()_+-=[]{}|;':"./<>?
+Tabs      :	tabbed	content	here
+Unicode   : café, naïve, résumé, Ünïcödé
+
+----------------------------------------
+SECTION: Numbers
+----------------------------------------
+Integer   : 42
+Float     : 3.14159
+Negative  : -256
+Large     : 1000000000
+Scientific: 1.23e10
+
+----------------------------------------
+SECTION: Empty Lines Test
+----------------------------------------
+
+(Above and below this line are intentionally blank)
+
+----------------------------------------
+SECTION: Repeated Content
+----------------------------------------
+apple
+banana
+cherry
+apple
+banana
+cherry
+apple
+
+----------------------------------------
+SECTION: Long Line Test
+----------------------------------------
+This is a very long line that goes on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and on and is useful for testing buffer sizes and line length handling in Java I/O operations.
+
+----------------------------------------
+SECTION: CSV-like Data
+----------------------------------------
+id,name,age,email
+1,Alice,30,alice@example.com
+2,Bob,25,bob@example.com
+3,Charlie,35,charlie@example.com
+4,Diana,28,diana@example.com
+5,Eve,22,eve@example.com
+
+----------------------------------------
+SECTION: Key-Value Pairs
+----------------------------------------
+username=testuser
+password=secret123
+host=localhost
+port=8080
+debug=true
+timeout=5000
+
+----------------------------------------
+END OF FILE
+----------------------------------------
+Total lines (approx): 60
+Created for: Java File I/O Testing
+Encoding: UTF-8
+========================================
