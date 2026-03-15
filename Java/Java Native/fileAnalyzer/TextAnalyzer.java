@@ -2,8 +2,9 @@ import java.io.*;
 import java.util.*;
 import java.util.regex.Pattern;
 
-public class TextAnalyzer {        // Main Analysis Logic
-    private static final Pattern WORD_PATTERN = Pattern.compile("[^a-zA-Z0-9']");
+// Analysis Logic
+public class TextAnalyzer {
+    private static final Pattern WORD_PATTERN = Pattern.compile("[^a-zA-Z0-9']");       // compiled once, reused many times
     private static final Pattern SENTENCE_PATTERN = Pattern.compile("[.!?]");
 
     public TextStatistics analyzeText(String content, String filename) {

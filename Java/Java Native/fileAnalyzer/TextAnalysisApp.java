@@ -10,38 +10,6 @@ public class TextAnalysisApp {
         this.scanner = new Scanner(System.in);
     }
 
-    public void start() {
-        System.out.println("=== File Manager & Text Analyzer ===");
-
-        while (true) {
-            displayMainMenu();
-            int choice = getIntInput("Enter your choice: ");
-
-            switch (choice) {
-                case 1 -> analyzeFile();
-                case 2 -> compareFiles();
-                case 3 -> viewFileContent();
-                case 4 -> {
-                    System.out.println("Thank you for using Text Analyzer!");
-                    return;
-                }
-                default -> System.out.println("Invalid choice! Please try again.");
-            }
-
-            System.out.println("\nPress Enter to continue...");
-            scanner.nextLine();
-        }
-    }
-
-    private void displayMainMenu() {
-        System.out.println("\n===== MAIN MENU =====");
-        System.out.println("1. Analyze Text File");
-        System.out.println("2. Compare Two Files");
-        System.out.println("3. View File Content");
-        System.out.println("4. Exit");
-        System.out.println("=====================");
-    }
-
     private void analyzeFile() {
         System.out.println("\n----- Analyze Text File -----");
         System.out.print("Enter file path: ");
@@ -64,10 +32,7 @@ public class TextAnalysisApp {
             analyzer.displayStatistics(stats);
 
             // Ask to save report
-            System.out.print("\nWould you like to save this report to a file? (y/n): ");
-            String saveChoice = scanner.nextLine().toLowerCase();
-
-            if (saveChoice.equals("y") || saveChoice.equals("yes")) {
+            if (getYesNoInput("\nWould you like to save this report? (y/n): ")) {
                 String outputPath = generateOutputPath(filePath);
                 analyzer.generateReport(stats, outputPath);
                 System.out.println("Report saved to: " + outputPath);
@@ -174,8 +139,43 @@ public class TextAnalysisApp {
         }
     }
 
+    private boolean getYesNoInput(String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String input = scanner.nextLine().trim().toLowerCase();
+            if (input.equals("y") || input.equals("yes")) return true;
+            if (input.equals("n") || input.equals("no"))  return false;
+            System.out.println("✘ Please enter 'y' or 'n'.");
+        }
+    }
+
     public static void main(String[] args) {
         TextAnalysisApp app = new TextAnalysisApp();
-        app.start();
+        System.out.println("=== File Manager & Text Analyzer ===");
+
+        while (true) {
+            System.out.println("\n===== MAIN MENU =====");
+            System.out.println("1. Analyze Text File");
+            System.out.println("2. Compare Two Files");
+            System.out.println("3. View File Content");
+            System.out.println("4. Exit");
+            System.out.println("=====================");
+
+            int choice = app.getIntInput("Enter your choice: ");
+
+            switch (choice) {
+                case 1 -> app.analyzeFile();
+                case 2 -> app.compareFiles();
+                case 3 -> app.viewFileContent();
+                case 4 -> {
+                    System.out.println("Thank you for using Text Analyzer!");
+                    return;
+                }
+                default -> System.out.println("Invalid choice! Please try again.");
+            }
+
+            System.out.println("\nPress Enter to continue...");
+            app.scanner.nextLine();
+        }
     }
 }
