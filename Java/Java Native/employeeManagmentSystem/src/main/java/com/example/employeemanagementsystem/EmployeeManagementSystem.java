@@ -183,7 +183,7 @@ private boolean getConfirmationInput(String prompt) {
         if (input.equalsIgnoreCase("yes")) return true;
         if (input.equalsIgnoreCase("no"))  return false;
 
-        System.out.println("✘ Invalid input. Please enter 'yes' or 'no'.");
+        System.out.println("Invalid input. Please enter 'yes' or 'no'.");
     }
 }
 

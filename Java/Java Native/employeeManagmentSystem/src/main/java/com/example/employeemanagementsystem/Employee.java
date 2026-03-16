@@ -5,7 +5,7 @@ public class Employee {
     private String name;
     private int age;
     private String department;
-    private double salary;
+    private double salary;  
 
     // Constructor
     public Employee(String id, String name, int age, String department, double salary) {

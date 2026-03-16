@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 // UI
@@ -11,21 +12,6 @@ public class Main {
         this.bank = new Bank();
         this.scanner = new Scanner(System.in);
         this.isRunning = true;
-    }
-
-    private void showLoginMenu() {
-        System.out.println("\n----- ATM Login -----");
-        System.out.println("1. Login");
-        System.out.println("2. Exit");
-        System.out.print("Choose option: ");
-
-        int choice = getIntInput();
-
-        switch (choice) {
-            case 1 -> login();
-            case 2 -> isRunning = false;
-            default -> System.out.println("Invalid option. Please try again.");
-        }
     }
 
     private void login() {
@@ -42,30 +28,6 @@ public class Main {
                     currentAccount.getAccountHolderName() + "!");
         } else {
             System.out.println("Login failed. Please try again.");
-        }
-    }
-
-    private void showMainMenu() {
-        System.out.println("\n===== MAIN MENU =====");
-        System.out.println("1. Check Balance");
-        System.out.println("2. Deposit");
-        System.out.println("3. Withdraw");
-        System.out.println("4. Change PIN");
-        System.out.println("5. View Account Info");
-        System.out.println("6. Logout");
-        System.out.println("=====================");
-        System.out.print("Choose option: ");
-
-        int choice = getIntInput();
-
-        switch (choice) {
-            case 1 -> checkBalance();
-            case 2 -> deposit();
-            case 3 -> withdraw();
-            case 4 -> changePin();
-            case 5 -> viewAccountInfo();
-            case 6 -> logout();
-            default -> System.out.println("Invalid option. Please try again.");
         }
     }
 
@@ -90,15 +52,11 @@ public class Main {
         System.out.println("\n----- Withdraw -----");
         double amount = getDoubleInput("Enter amount to withdraw: $");
 
-        if (amount > 0) {
-            if (currentAccount.withdraw(amount)) {
-                System.out.printf("Successfully withdrew $%.2f%n", amount);
-                System.out.printf("New Balance: $%.2f%n", currentAccount.getBalance());
-            } else {
-                System.out.println("Insufficient funds or invalid amount.");
-            }
+        if (currentAccount.withdraw(amount)) {
+            System.out.printf("Successfully withdrew $%.2f%n", amount);
+            System.out.printf("New Balance: $%.2f%n", currentAccount.getBalance());
         } else {
-            System.out.println("Invalid amount. Withdrawal must be greater than $0.");
+            System.out.println("Invalid amount. Withdrawal must be greater than $0.");          //System.out.println("Insufficient funds or invalid amount.");
         }
     }
 
@@ -106,8 +64,7 @@ public class Main {
         System.out.println("\n----- Change PIN -----");
 
         // Verify current PIN first
-        System.out.print("Enter current PIN: ");
-        String currentPin = scanner.nextLine().trim();
+        String currentPin = getStringInput("Enter current PIN: ");
 
         if (!currentAccount.validatePin(currentPin)) {
             System.out.println("Incorrect current PIN.");
@@ -115,19 +72,16 @@ public class Main {
         }
 
         // Get new PIN with validation
-        System.out.print("Enter new PIN (4 digits): ");
-        String newPin = scanner.nextLine().trim();
+        String newPin = getStringInput("Enter new PIN (4 digits): ");
+        String confirmPin = getStringInput("Confirm new PIN: ");
 
-        if (newPin.matches("\\d{4}")) {
-            System.out.print("Confirm new PIN: ");
-            String confirmPin = scanner.nextLine().trim();
+        if (!newPin.equals(confirmPin)) {
+            System.out.println("PINs do not match.");
+            return;
+        }
 
-            if (newPin.equals(confirmPin)) {
-                currentAccount.changePin(newPin);
-                System.out.println("PIN changed successfully!");
-            } else {
-                System.out.println("PINs do not match.");
-            }
+        if (currentAccount.changePin(newPin)) {
+            System.out.println("PIN changed successfully.");
         } else {
             System.out.println("PIN must be exactly 4 digits.");
         }
@@ -138,32 +92,34 @@ public class Main {
         System.out.println(currentAccount);
     }
 
+    private void viewTransactionHistory() {
+        List<String> history = currentAccount.getTransactionHistory();
+        if (history.isEmpty()) {
+            System.out.println("No transactions yet.");
+            return;
+        }
+        System.out.println("\n----- Transaction History -----");
+        for (int i = 0; i < history.size(); i++) {
+            System.out.printf("%2d. %s%n", i + 1, history.get(i));
+        }
+    }
+
     private void logout() {
         System.out.println("\nLogging out... Goodbye, " +
                 currentAccount.getAccountHolderName() + "!");
         currentAccount = null;
-        bank.resetLoginAttempts();
+        // bank.resetLoginAttempts();
     }
 
     // Utility methods
     private int getIntInput(String prompt) {
         while (true) {
             System.out.print(prompt);
+            String input = scanner.nextLine().trim();
             try {
-                return Integer.parseInt(scanner.nextLine());
+                return Integer.parseInt(input);
             } catch (NumberFormatException e) {
-                System.out.print("Please enter a valid number: ");
-            }
-        }
-    }
-
-    private double getDoubleInput(String prompt) {
-        while (true) {
-            System.out.print(prompt);
-            try {
-                return Double.parseDouble(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.print("Please enter a valid amount: ");
+                System.out.println("Please enter a valid number: ");
             }
         }
     }
@@ -175,12 +131,12 @@ public class Main {
             try {
                 double value = Double.parseDouble(input);
                 if (value < 0) {
-                    System.out.println("Salary cannot be negative.");
+                    System.out.println("Amount cannot be negative.");
                     continue;
                 }
                 return value;
             } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid salary.");
+                System.out.println("Invalid input. Please enter a valid amount.");
             }
         }
     }
@@ -195,11 +151,23 @@ public class Main {
             System.out.println("Input cannot be empty. Please try again.");
         }
     }
+    
+    private void showLoginMenu() {
+        System.out.println("\n----- ATM Login -----");
+        System.out.println("1. Login");
+        System.out.println("2. Exit");
+    }
 
-    // Demonstration method to show all accounts (for testing)
-    public void displayAllAccounts() {
-        System.out.println("\n=== All Accounts (For Demonstration) ===");
-        // This would typically not be in a real ATM
+    private void showMainMenu() {
+        System.out.println("\n===== MAIN MENU =====");
+        System.out.println("1. Check Balance");
+        System.out.println("2. Deposit");
+        System.out.println("3. Withdraw");
+        System.out.println("4. Change PIN");
+        System.out.println("5. View Account Info");
+        System.out.println("6. View Transaction History");
+        System.out.println("7. Logout");
+        System.out.println("=====================");
     }
 
     public static void main(String[] args) {
@@ -209,15 +177,46 @@ public class Main {
         while (atm.isRunning) {
             if (atm.currentAccount == null) {
                 atm.showLoginMenu();
+                int choice = atm.getIntInput("Choose option: ");
+
+                switch (choice) {
+                    case 1 -> atm.login();
+                    case 2 -> atm.isRunning = false;
+                    default -> System.out.println("Invalid option. Please try again.");
+                }
             } else {
                 atm.showMainMenu();
-            }
-        }
+                int choice = atm.getIntInput("Choose option: ");
 
-        System.out.print("\nPress Enter to continue...");
-        atm.scanner.nextLine();
+                switch (choice) {
+                    case 1 -> atm.checkBalance();
+                    case 2 -> atm.deposit();
+                    case 3 -> atm.withdraw();
+                    case 4 -> atm.changePin();
+                    case 5 -> atm.viewAccountInfo();
+                    case 6 -> atm.viewTransactionHistory();
+                    case 7 -> atm.logout();
+                    default -> System.out.println("Invalid option. Please try again.");
+                }
+            }
+
+            System.out.println("\nPress Enter to continue...");
+            atm.scanner.nextLine();
+        }
 
         System.out.println("Thank you for using Our Banking App. Goodbye!");
         atm.scanner.close();
     }
 }
+
+// private int getIntInputWithDefault(String prompt, int defaultValue) {
+//     System.out.print(prompt);
+//     String input = scanner.nextLine().trim();
+//     if (input.isEmpty()) return defaultValue;
+//     try {
+//         return Integer.parseInt(input.trim());
+//     } catch (NumberFormatException e) {
+//         System.out.println("Invalid input. Using default value: " + defaultValue);
+//         return defaultValue;
+//     }
+// }

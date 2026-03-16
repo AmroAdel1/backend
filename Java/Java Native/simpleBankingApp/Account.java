@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 // data model & business logic
 public class Account {
@@ -11,6 +13,8 @@ public class Account {
     private boolean isLocked = false;
     private static final int MAX_ATTEMPTS = 3;
 
+    private List<String> transactionHistory = new ArrayList<>();
+
     public Account(String accountNumber, String pin, double balance, String accountHolderName) {
         this.accountNumber = accountNumber;
         this.pin = pin;
@@ -22,11 +26,12 @@ public class Account {
     public String getAccountNumber() { return accountNumber; }
     public double getBalance() { return balance; }
     public String getAccountHolderName() { return accountHolderName; }
+    public List<String> getTransactionHistory() { return transactionHistory; }
 
     // Business logic methods
     public boolean validatePin(String inputPin) {
         if (isLocked) {
-            System.out.println("Account is locked. Contact your bank.");
+            System.out.println("Account is locked. Contact your bank.");   // per-account lock after 3 attempts 
             return false;
         }
         if (this.pin.equals(inputPin)) {
@@ -42,17 +47,17 @@ public class Account {
     }
     public boolean isLocked() { return isLocked; }
 
-    public boolean withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            return true;
-        }
-        return false;
-    }
-
     public boolean deposit(double amount) {
         if (amount <= 0) return false;
         balance += amount;
+        transactionHistory.add(String.format("Deposited  : +$%.2f | Balance: $%.2f", amount, balance));
+        return true;
+    }
+
+    public boolean withdraw(double amount) {
+        if (amount <= 0 || amount > balance) return false;
+        balance -= amount;
+        transactionHistory.add(String.format("Withdrawn  : -$%.2f | Balance: $%.2f", amount, balance));
         return true;
     }
 
