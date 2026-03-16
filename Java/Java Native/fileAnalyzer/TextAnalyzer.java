@@ -67,19 +67,12 @@ public class TextAnalyzer {
         for (String word : words) {
             word = word.trim();
             if (word.length() > 0 && !isCommonNoise(word)) {
-                // Update word count
-                wordCount++;
-
-                // Update total word length for average calculation
-                totalWordLength += word.length();
-
-                // Check for longest word
-                if (word.length() > longestWord.length()) {
+                wordCount++;                                // Update word count
+                totalWordLength += word.length();           // Update total word length for average calculation
+                if (word.length() > longestWord.length()) { // Check for longest word
                     longestWord = word;
                 }
-
-                // Add to frequency map
-                stats.addWord(word);
+                stats.addWord(word);                        // Add to frequency map
             }
         }
 
@@ -92,17 +85,17 @@ public class TextAnalyzer {
         stats.setMostFrequentWord(mostFrequent);
     }
 
-    private boolean isCommonNoise(String word) {
+    private boolean isCommonNoise(String word) {    // any stand alone number/s or a single letter except a/i, remove
         return word.matches("\\d+") || // numbers only
                 word.length() == 1 && !word.equals("a") && !word.equals("i"); // single letters except a/i
     }
 
     private String findMostFrequentWord(Map<String, Integer> wordFrequency) {
-        return wordFrequency.entrySet()
-                .stream()
-                .max(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse("");
+        return wordFrequency.entrySet()             // Converts Map into Set of key-value pairs so we can iterate over both key and value together
+                .stream()                           // Converts EntrySet into stream so we can use pipeline operations on it.
+                .max(Map.Entry.comparingByValue())  // Finds entry with highest value (count) by comparing all entries by their Integer value.
+                .map(Map.Entry::getKey)             // Transforms Optional<Entry> into Optional<String> by extracting just key (word) from entry — we don't need count anymore, just word itself.
+                .orElse("");                 // Unwraps Optional — returns word if present, or an empty string as fallback if map was empty.
     }
 
     public void generateReport(TextStatistics stats, String outputFilePath) throws IOException {
@@ -112,15 +105,7 @@ public class TextAnalyzer {
         report.append(stats.toString()).append("\n\n");
 
         // Word frequency section
-        report.append("Top 10 Most Frequent Words:\n");
-        report.append("---------------------------\n");
-
-        List<Map.Entry<String, Integer>> topWords = stats.getTopWords(10);
-        for (int i = 0; i < topWords.size(); i++) {
-            Map.Entry<String, Integer> entry = topWords.get(i);
-            report.append(String.format("%2d. %-15s : %d times\n",
-                    i + 1, entry.getKey(), entry.getValue()));
-        }
+        report.append(formatTopWords(stats));
 
         report.append("\nDetailed Word Frequency:\n");
         report.append("------------------------\n");
@@ -140,14 +125,21 @@ public class TextAnalyzer {
 
     public void displayStatistics(TextStatistics stats) {
         System.out.println("\n" + stats.toString());
+        System.out.print(formatTopWords(stats));
+    }
 
-        System.out.println("\nTop 10 Most Frequent Words:");
-        System.out.println("---------------------------");
+    // Method to format top Most Frequent Words
+    private String formatTopWords(TextStatistics stats) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\nTop 10 Most Frequent Words:\n");
+        sb.append("---------------------------\n");
+
         List<Map.Entry<String, Integer>> topWords = stats.getTopWords(10);
         for (int i = 0; i < topWords.size(); i++) {
             Map.Entry<String, Integer> entry = topWords.get(i);
-            System.out.printf("%2d. %-15s : %d times\n",
-                    i + 1, entry.getKey(), entry.getValue());
+            sb.append(String.format("%2d. %-15s : %d times\n",
+                    i + 1, entry.getKey(), entry.getValue()));
         }
+        return sb.toString();
     }
 }
