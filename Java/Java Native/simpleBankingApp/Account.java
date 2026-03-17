@@ -34,17 +34,26 @@ public class Account {
             System.out.println("Account is locked. Contact your bank.");   // per-account lock after 3 attempts 
             return false;
         }
+
         if (this.pin.equals(inputPin)) {
             failedAttempts = 0;       // reset on success
             return true;
         }
+
         failedAttempts++;
+        int remainingAttempts = MAX_ATTEMPTS - failedAttempts;
+        if (remainingAttempts > 0) {
+            System.out.println("Invalid account number or PIN. Attempts remaining: " + remainingAttempts);
+        }
+
         if (failedAttempts >= MAX_ATTEMPTS) {
             isLocked = true;
             System.out.println("Account locked after too many failed attempts.");
         }
+        
         return false;
     }
+
     public boolean isLocked() { return isLocked; }
 
     public boolean deposit(double amount) {

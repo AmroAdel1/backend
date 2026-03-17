@@ -15,17 +15,13 @@ public class Main {
     }
 
     private void login() {
-        System.out.print("Enter Account Number: ");
-        String accountNumber = scanner.nextLine().trim();
-
-        System.out.print("Enter PIN: ");
-        String pin = scanner.nextLine().trim();
+        String accountNumber = getStringInput("Enter Account Number: ");
+        String pin = getStringInput("Enter PIN: ");
 
         currentAccount = bank.authenticate(accountNumber, pin);
 
         if (currentAccount != null) {
-            System.out.println("\nLogin successful! Welcome, " +
-                    currentAccount.getAccountHolderName() + "!");
+            System.out.println("\nLogin successful! Welcome, " + currentAccount.getAccountHolderName() + "!");
         } else {
             System.out.println("Login failed. Please try again.");
         }
@@ -105,8 +101,7 @@ public class Main {
     }
 
     private void logout() {
-        System.out.println("\nLogging out... Goodbye, " +
-                currentAccount.getAccountHolderName() + "!");
+        System.out.println("\nLogging out... Goodbye, " + currentAccount.getAccountHolderName() + "!");
         currentAccount = null;
         // bank.resetLoginAttempts();
     }
