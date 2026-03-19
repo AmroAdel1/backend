@@ -14,6 +14,19 @@ public class Main {
         this.isRunning = true;
     }
 
+    // Getters
+    private boolean getIsRunning() {
+        return isRunning;
+    }  
+    private Account getCurrentAccount() {
+        return currentAccount;
+    }
+    
+    // Setters
+    private void setIsRunning(boolean isRunning) {
+        this.isRunning = isRunning;
+    }
+
     private void login() {
         String accountNumber = getStringInput("Enter Account Number: ");
         String pin = getStringInput("Enter PIN: ");
@@ -40,7 +53,7 @@ public class Main {
             System.out.printf("Successfully deposited $%.2f%n", amount);
             System.out.printf("New Balance: $%.2f%n", currentAccount.getBalance());
         } else {
-            System.out.println("Invalid amount. Deposit must be greater than $0.");
+            System.out.println("Invalid amount. Deposit must be greater than $0.");   // case: amount == 0
         }
     }
 
@@ -52,17 +65,15 @@ public class Main {
             System.out.printf("Successfully withdrew $%.2f%n", amount);
             System.out.printf("New Balance: $%.2f%n", currentAccount.getBalance());
         } else {
-            System.out.println("Invalid amount. Withdrawal must be greater than $0.");          //System.out.println("Insufficient funds or invalid amount.");
+            System.out.println("Invalid amount. Withdrawal must be greater than $0 Or Insufficient funds");
         }
     }
 
     private void changePin() {
         System.out.println("\n----- Change PIN -----");
-
-        // Verify current PIN first
+        
         String currentPin = getStringInput("Enter current PIN: ");
-
-        if (!currentAccount.validatePin(currentPin)) {
+        if (!currentAccount.checkPin(currentPin)) {
             System.out.println("Incorrect current PIN.");
             return;
         }
@@ -85,7 +96,7 @@ public class Main {
 
     private void viewAccountInfo() {
         System.out.println("\n----- Account Information -----");
-        System.out.println(currentAccount);
+        System.out.println(currentAccount);  // toString
     }
 
     private void viewTransactionHistory() {
@@ -103,7 +114,6 @@ public class Main {
     private void logout() {
         System.out.println("\nLogging out... Goodbye, " + currentAccount.getAccountHolderName() + "!");
         currentAccount = null;
-        // bank.resetLoginAttempts();
     }
 
     // Utility methods
@@ -169,14 +179,14 @@ public class Main {
         Main atm = new Main();
         System.out.println("=== Welcome to Simple Banking App ===");
 
-        while (atm.isRunning) {
-            if (atm.currentAccount == null) {
+        while (atm.getIsRunning()) {
+            if (atm.getCurrentAccount() == null) {
                 atm.showLoginMenu();
                 int choice = atm.getIntInput("Choose option: ");
 
                 switch (choice) {
                     case 1 -> atm.login();
-                    case 2 -> atm.isRunning = false;
+                    case 2 -> atm.setIsRunning(false);
                     default -> System.out.println("Invalid option. Please try again.");
                 }
             } else {

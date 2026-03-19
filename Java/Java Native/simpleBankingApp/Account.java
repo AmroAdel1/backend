@@ -7,13 +7,12 @@ public class Account {
     private String pin;
     private double balance;
     private String accountHolderName;
+    private List<String> transactionHistory = new ArrayList<>();
 
     // each account locks independently
     private int failedAttempts = 0;
     private boolean isLocked = false;
     private static final int MAX_ATTEMPTS = 3;
-
-    private List<String> transactionHistory = new ArrayList<>();
 
     public Account(String accountNumber, String pin, double balance, String accountHolderName) {
         this.accountNumber = accountNumber;
@@ -29,7 +28,7 @@ public class Account {
     public List<String> getTransactionHistory() { return transactionHistory; }
 
     // Business logic methods
-    public boolean validatePin(String inputPin) {
+    public boolean validatePin(String inputPin) {    // lock and error messages
         if (isLocked) {
             System.out.println("Account is locked. Contact your bank.");   // per-account lock after 3 attempts 
             return false;
@@ -42,19 +41,16 @@ public class Account {
 
         failedAttempts++;
         int remainingAttempts = MAX_ATTEMPTS - failedAttempts;
+
         if (remainingAttempts > 0) {
             System.out.println("Invalid account number or PIN. Attempts remaining: " + remainingAttempts);
-        }
-
-        if (failedAttempts >= MAX_ATTEMPTS) {
+        } else {
             isLocked = true;
             System.out.println("Account locked after too many failed attempts.");
         }
         
         return false;
     }
-
-    public boolean isLocked() { return isLocked; }
 
     public boolean deposit(double amount) {
         if (amount <= 0) return false;
@@ -76,9 +72,13 @@ public class Account {
         return true;
     }
 
+    public boolean checkPin(String inputPin) {  // for current pin
+        return this.pin.equals(inputPin);
+    }
+
     @Override
     public String toString() {
-        return String.format("Account: %s | Holder: %s | Balance: $%.2f",
+        return String.format("Account ID: %s | Account Holder: %s | Balance: $%.2f",
                 accountNumber, accountHolderName, balance);
     }
 }

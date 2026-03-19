@@ -3,7 +3,7 @@ import java.util.Map;
 
 // authentication & account management
 public class Bank {
-    private Map<String, Account> accounts;
+    private Map<String, Account> accounts;   // id, account object
     private int nextId = 1;
 
     public Bank() {
@@ -18,7 +18,7 @@ public class Bank {
         addAccount("5555", 500.75, "Bob Johnson");
     }
 
-    private String generateId() {           // formats nextId as zero-padded 3-digit integer
+    private String generateId() {           // formats as zero-padded 3-digit integer
         return "ACC" + String.format("%03d", nextId++);
     }
 
@@ -29,14 +29,10 @@ public class Bank {
             System.out.println("Account not found.");
             return null;
         }
-        if (!account.validatePin(pin)) {  // Account handles locking internally     // Account.validatePin() handles lock + error messages
+        if (!account.validatePin(pin)) {
             return null;
         }
         return account;
-    }
-
-    public boolean accountExists(String accountNumber) {
-        return accounts.containsKey(accountNumber);
     }
 
     public Account addAccount(String pin, double balance, String holderName) {
@@ -66,11 +62,7 @@ public class Bank {
         }
     } 
 
-    private int loginAttempts;
-    private static final int MAX_LOGIN_ATTEMPTS = 3;
-    this.loginAttempts = 0;
-
-    public void resetLoginAttempts() {
-        this.loginAttempts = 0;
+    public boolean accountExists(String accountNumber) {
+        return accounts.containsKey(accountNumber);
     }
 */
